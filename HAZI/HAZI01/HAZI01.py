@@ -9,14 +9,18 @@
 inputList1 = [1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 9]
 inputList2 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 inputListTuples = [(1, 2), (3, 4), (5, 6), (7, 8), (9, 10)]
+inputList3 = []
 
 
 # %%
 def subset(input_list, start_index, end_index):
     tmpList = []
-    for i in range(start_index, end_index):
-        tmpList.append(input_list[i])
-    return tmpList
+    if len(input_list) > 0:
+        for i in range(start_index, end_index):
+            tmpList.append(input_list[i])
+        return tmpList
+    else:
+        return tmpList
 
 
 # %%
@@ -107,8 +111,9 @@ def reverse_tuples(input_list):
 
 
 # %%
-def remove_tuplicates(input_list):
+def remove_duplicates(input_list):
     output_list = []
+
     for item in input_list:
         if item not in output_list:
             output_list.append(item)
@@ -125,15 +130,18 @@ def remove_tuplicates(input_list):
 # %%
 def transpose(input_list):
     outputList = []
-    for i in range(len(input_list)):
-        outputList.append([])
-        for j in range(len(input_list[i])):
-            outputList[i].append([])
+    if len(input_list) > 0:
+        for i in range(len(input_list)):
+            outputList.append([])
+            for j in range(len(input_list[i])):
+                outputList[i].append([])
 
-    for i in range(len(input_list)):
-        for j in range(len(input_list[i])):
-            outputList[i][j] = input_list[j][i]
-    return outputList
+        for i in range(len(input_list)):
+            for j in range(len(input_list[i])):
+                outputList[i][j] = input_list[j][i]
+        return outputList
+    else:
+        return outputList
 
 
 # %%
@@ -151,13 +159,12 @@ def split_into_chunks(input_list, chunk_size):
     ctr = 0
 
     for i in input_list:
-        for j in i:
-            tmpList.append(j)
-            ctr += 1
-            if ctr == chunk_size:
-                outputList.append(tmpList)
-                ctr = 0
-                tmpList = []
+        tmpList.append(i)
+        ctr += 1
+        if ctr == chunk_size:
+            outputList.append(tmpList)
+            ctr = 0
+            tmpList = []
 
     return outputList
 
@@ -171,10 +178,11 @@ def split_into_chunks(input_list, chunk_size):
 # %%
 
 
-def merge_dicts(*dict):
-    for i in range(len(dict) - 1):
-        dict[i] | dict[i + 1]
-    return dict
+def merge_dicts(*args):
+    outputDict = {}
+    for i in args:
+        outputDict = outputDict | i
+    return outputDict
 
 
 # %%
@@ -188,8 +196,8 @@ def merge_dicts(*dict):
 # %%
 def by_parity(input_list):
     numDict = {"even": [], "odd": []}
-    for i in input_list:
-        if i % 2 == 0:
+    for i in range(len(input_list)):
+        if input_list[i] % 2 == 0:
             numDict["even"].append(input_list[i])
         else:
             numDict["odd"].append(input_list[i])
