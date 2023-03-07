@@ -37,8 +37,7 @@ def set_one(inputarray):
 
 # %%
 def do_transpose(inputMatrix):
-    np.transpose(inputMatrix)
-    return inputMatrix
+    return np.transpose(inputMatrix)
 
 # %%
 # Készíts egy olyan függvényt ami az array-ben lévő értékeket N tizenedjegyik kerekíti, alapértelmezetten 
