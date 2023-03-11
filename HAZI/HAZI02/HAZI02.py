@@ -28,7 +28,10 @@ def column_swap(input_arr):
 
 # %%
 def compare_two_array(input_array1, input_array2):
-    return np.where(input_array1 == input_array2)[0].astype(int)
+    if (len(input_array1) == len(input_array2)):
+        return np.where(input_array1 == input_array2)[0].astype(int)
+    else:
+        return np.array([])
 
 
 # %%
@@ -169,7 +172,7 @@ def list_days(fromdate,todate):
 
 
 # %%
-def todaysDate():
+def get_act_date():
     return np.datetime64('now','D')
 
 # %%
@@ -181,7 +184,7 @@ def todaysDate():
 
 # %%
 def sec_from_1970():
-    startTime = np.datetime64('1970-01-01T02:00')
+    startTime = np.datetime64('1970-01-01T00:02:00')
     now = np.datetime64('now')
     return (now - startTime).astype(int)
 
