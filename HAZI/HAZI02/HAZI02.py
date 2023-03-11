@@ -95,7 +95,7 @@ def eval_classification(input_list,input_array):
 
 # %%
 def replace_odd_numbers(input_array):
-    input_array[input_array % 2== 1] =-1
+    input_array = np.where(input_array%2 == 1,-1, input_array)
     return input_array
 
 
@@ -181,7 +181,7 @@ def todaysDate():
 
 # %%
 def sec_from_1970():
-    startTime = np.datetime64('1970-01-01T00:00')
+    startTime = np.datetime64('1970-01-01T02:00')
     now = np.datetime64('now')
     return (now - startTime).astype(int)
 
