@@ -94,7 +94,7 @@ def eval_classification(input_list,input_array):
 # repalce_odd_numbers()
 
 # %%
-def repalce_odd_numbers(input_array):
+def replace_odd_numbers(input_array):
     input_array[input_array % 2== 1] =-1
     return input_array
 
