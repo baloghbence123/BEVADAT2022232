@@ -30,10 +30,7 @@ def dict_to_dataframe(test_dict):
     return test_df
 
 
-# %%
 
-test_df = dict_to_dataframe(stats)
-print(test_df)
 
 # %%
 '''
@@ -53,8 +50,6 @@ def get_column(test_df,strIn):
     return(columnA)
 
 
-# %%
-print(get_column(test_df,'area'))
 
 # %%
 '''
@@ -72,8 +67,6 @@ def get_top_two(test_df):
     output = newDf.nlargest(2,'area')
     return output
 
-# %%
-print(get_top_two(test_df))
 
 # %%
 '''
@@ -94,8 +87,6 @@ def population_density(test_df):
     newDf['density'] = dens
     return newDf
 
-# %%
-print(population_density(test_df))
 
 # %%
 '''
@@ -127,8 +118,6 @@ def plot_population(test_df):
     return fig
     
 
-# %%
-plot_population(test_df)
 
 # %%
 '''
@@ -153,7 +142,5 @@ def plot_area(test_df):
     return fig
 
 
-# %%
-plot_area(test_df)
 
 
