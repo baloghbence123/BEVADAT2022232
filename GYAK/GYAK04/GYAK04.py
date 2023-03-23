@@ -30,7 +30,10 @@ def dict_to_dataframe(test_dict):
     return test_df
 
 
+# %%
 
+test_df = dict_to_dataframe(stats)
+print(test_df)
 
 # %%
 '''
@@ -50,6 +53,8 @@ def get_column(test_df,strIn):
     return(columnA)
 
 
+# %%
+print(get_column(test_df,'area'))
 
 # %%
 '''
@@ -67,6 +72,8 @@ def get_top_two(test_df):
     output = newDf.nlargest(2,'area')
     return output
 
+# %%
+print(get_top_two(test_df))
 
 # %%
 '''
@@ -87,6 +94,8 @@ def population_density(test_df):
     newDf['density'] = dens
     return newDf
 
+# %%
+print(population_density(test_df))
 
 # %%
 '''
@@ -104,19 +113,18 @@ függvény neve: plot_population
 '''
 
 # %%
-def plot_population(test_df):
-    newDf = test_df.copy()
-    fig = plt.figure(figsize = (10, 5))
- 
 
-    plt.bar(newDf['country'], newDf['population'], color ='maroon',  width = 0.5)
+
+def plot_population(test_df):
     
-    plt.xlabel("Country")
-    plt.ylabel("Population (millions)")
+    new_df = test_df.copy()
+    fig, ax = plt.subplots()
+    ax.bar(new_df["country"], new_df["population"])
+    ax.set_xlabel("Country")
+    ax.set_ylabel("Population (millions)")
     plt.title("Population of Countries")
-    plt.show()
+
     return fig
-    
 
 
 # %%
@@ -133,13 +141,18 @@ függvény neve: plot_area
 '''
 
 # %%
+
 def plot_area(test_df):
-    newDf = test_df.copy()
-    fig = plt.figure(figsize = (10, 5))
-    
-    plt.pie(newDf['area'],labels = newDf['country'])
-    plt.show()
+    new_df = test_df.copy()
+    fig,ax = plt.subplots()
+    ax.pie(new_df["area"], labels = new_df["country"])
+    plt.title("Area of Countries")
+
     return fig
+
+
+print(plot_area(test_df))
+
 
 
 
