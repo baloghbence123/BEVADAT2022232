@@ -23,10 +23,11 @@ függvény neve: csv_to_df
 # %%
 
 
-def csv_to_pdf(path):
+def csv_to_df(path):
     df_data = pd.read_csv(path)
     return df_data
 
+df = pd.read_csv("StudentsPerformance.csv")
 
 
 # %%
@@ -68,6 +69,7 @@ def math_passed_count(df_data):
     ctr = len(newDf[newDf['math score'] >= 50])
     return ctr
 
+math_passed_count(df)
 
 # %%
 '''
@@ -86,6 +88,7 @@ def did_pre_course(df_data):
     ret = newDf[newDf['test preparation course']!='none']
     return ret
 
+did_pre_course(df)
 
 # %%
 '''
@@ -103,6 +106,7 @@ def average_scores(df_data):
     newDf = df_data.copy()
     return newDf.groupby('parental level of education').aggregate({'math score':'mean','reading score':'mean',
                                                                    'writing score':'mean'})
+average_scores(df)
 
 # %%
 '''
@@ -119,10 +123,12 @@ függvény neve: add_age
 # %%
 def add_age(df_data):
     newDf=df_data.copy()
-    age = np.random.randint(18, 66, size=len(newDf))
+    np.random.seed(42)
+    age = np.random.randint(18, 66, size=len(newDf))    
     newDf['age']=age
     return newDf
 
+add_age(df)
 
 # %%
 '''
@@ -142,6 +148,8 @@ def female_top_score(df_data):
     tmp = retval[retval['gender']=='female'].iloc[0]
     ki = (tmp['math score'],tmp['reading score'],tmp['writing score'])
     return ki
+
+female_top_score(df)
 
 # %%
 '''
@@ -167,11 +175,12 @@ def add_grade(df_data):
     newDf = df_data.copy()
     grade = (newDf['math score']+newDf['reading score']+newDf['writing score'])/300    
     newDf['grade'] = pd.cut(grade,
-                     bins = [0, 0.6,0.7,0.8,0.9,1],
+                     bins = [0, 0.61,0.71,0.81,0.91,1.],
                      right=False,
                      labels=['F','D','C','B','A'])
     
     return newDf
+add_grade(df)
 
 # %%
 '''
@@ -198,6 +207,7 @@ def math_bar_plot(df_data):
 
     return fig
 
+print(math_bar_plot(df))
 
 # %%
 ''' 
@@ -228,6 +238,7 @@ def writing_hist(df_data):
 
     return fig
     
+writing_hist(df)
 
 # %%
 ''' 
@@ -252,5 +263,7 @@ def ethnicity_pie_chart(df_data):
     plot = groupped.plot.pie(y='race/ethnicity',title='Proportion of Students by Race/Ethnicity',autopct='%1.1f%%', figsize=(5, 5))
     return plot
     
+ethnicity_pie_chart(df)
+
 
 
