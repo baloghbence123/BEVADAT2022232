@@ -27,7 +27,7 @@ def csv_to_df(path):
     df_data = pd.read_csv(path)
     return df_data
 
-df = pd.read_csv("StudentsPerformance.csv")
+#df = pd.read_csv("StudentsPerformance.csv")
 
 
 # %%
@@ -69,7 +69,7 @@ def math_passed_count(df_data):
     ctr = len(newDf[newDf['math score'] >= 50])
     return ctr
 
-math_passed_count(df)
+
 
 # %%
 '''
@@ -88,7 +88,6 @@ def did_pre_course(df_data):
     ret = newDf[newDf['test preparation course']!='none']
     return ret
 
-did_pre_course(df)
 
 # %%
 '''
@@ -106,7 +105,6 @@ def average_scores(df_data):
     newDf = df_data.copy()
     return newDf.groupby('parental level of education').aggregate({'math score':'mean','reading score':'mean',
                                                                    'writing score':'mean'})
-average_scores(df)
 
 # %%
 '''
@@ -128,7 +126,6 @@ def add_age(df_data):
     newDf['age']=age
     return newDf
 
-add_age(df)
 
 # %%
 '''
@@ -149,7 +146,6 @@ def female_top_score(df_data):
     ki = (tmp['math score'],tmp['reading score'],tmp['writing score'])
     return ki
 
-female_top_score(df)
 
 # %%
 '''
@@ -180,7 +176,6 @@ def add_grade(df_data):
                      labels=['F','D','C','B','A'])
     
     return newDf
-add_grade(df)
 
 # %%
 '''
@@ -207,7 +202,6 @@ def math_bar_plot(df_data):
 
     return fig
 
-print(math_bar_plot(df))
 
 # %%
 ''' 
@@ -238,7 +232,6 @@ def writing_hist(df_data):
 
     return fig
     
-writing_hist(df)
 
 # %%
 ''' 
@@ -263,7 +256,6 @@ def ethnicity_pie_chart(df_data):
     plot = groupped.plot.pie(y='race/ethnicity',title='Proportion of Students by Race/Ethnicity',autopct='%1.1f%%', figsize=(5, 5))
     return plot
     
-ethnicity_pie_chart(df)
 
 
 
