@@ -2,8 +2,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-np.random.seed(42)
-
 # %%
 '''
 FONTOS: Az első feladatáltal visszaadott DataFrame-et kell használni a további feladatokhoz. 
@@ -122,7 +120,7 @@ függvény neve: add_age
 def add_age(df_data):
     newDf=df_data.copy()
     np.random.seed(42)
-    age = np.random.randint(18, 66, size=len(newDf))    
+    age = np.random.randint(18, 67, size=len(newDf))    
     newDf['age']=age
     return newDf
 
@@ -171,7 +169,7 @@ def add_grade(df_data):
     newDf = df_data.copy()
     grade = (newDf['math score']+newDf['reading score']+newDf['writing score'])/300    
     newDf['grade'] = pd.cut(grade,
-                     bins = [0, 0.61,0.71,0.81,0.91,1.],
+                     bins = [0, 0.6,0.7,0.8,0.9,1],
                      right=False,
                      labels=['F','D','C','B','A'])
     
@@ -195,10 +193,14 @@ függvény neve: math_bar_plot
 # %%
 
 
+
+
 def math_bar_plot(df_data):
     newDf = df_data.copy()
     arr = newDf.groupby("gender", group_keys=False)['math score'].mean()
-    fig = arr.plot(kind='bar', title='Average Math Score by Gender',ylabel='Math Score', xlabel='Gender', figsize=(5, 5))
+    
+    fig,ax = plt.subplots() 
+    arr.plot.bar(title='Average Math Score by Gender',ylabel='Math Score', xlabel='Gender',ax=ax,fig=fig)
 
     return fig
 
@@ -219,17 +221,14 @@ függvény neve: writing_hist
 '''
 
 # %%
+
+
 def writing_hist(df_data):
     newDf = df_data.copy()
-    fig, axes = plt.subplots(nrows=1, ncols=1, sharex=False, sharey=False)
-
-    newDf.hist(column='writing score',ax=axes)
-    plt.suptitle('Distribution of Writing Scores', x=0.5, y=1.05, ha='center', fontsize='xx-large')
-    fig.text(0.5, 0.04, 'Writing Score', ha='center')
-    fig.text(0.04, 0.5, 'Number of Students', va='center', rotation='vertical')
     
+    fig, ax = plt.subplots()
+    newDf.plot.hist(column='writing score',xlabel='Writing Score',ylabel='Number of Students',title='Distribution of Writing Scores',ax=ax,fig = fig)
     
-
     return fig
     
 
@@ -250,11 +249,15 @@ függvény neve: ethnicity_pie_chart
 
 
 # %%
+
 def ethnicity_pie_chart(df_data):
     newDf = df_data.copy()
-    groupped = newDf.groupby('race/ethnicity')['race/ethnicity'].count()
-    plot = groupped.plot.pie(y='race/ethnicity',title='Proportion of Students by Race/Ethnicity',autopct='%1.1f%%', figsize=(5, 5))
-    return plot
+    grouped = newDf.groupby('race/ethnicity')['race/ethnicity'].count()
+
+    fig,ax = plt.subplots()
+    grouped.plot.pie(title='Proportion of Students by Race/Ethnicity',autopct='%1.1f%%',fig = fig,ax=ax)
+    
+    return fig
     
 
 
