@@ -2,6 +2,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+
 # %%
 '''
 FONTOS: Az első feladatáltal visszaadott DataFrame-et kell használni a további feladatokhoz. 
@@ -19,14 +20,12 @@ függvény neve: csv_to_df
 '''
 
 # %%
-
-
 def csv_to_df(path):
     df_data = pd.read_csv(path)
     return df_data
 
 #df = pd.read_csv("StudentsPerformance.csv")
-
+#print(df)
 
 # %%
 '''
@@ -48,6 +47,7 @@ def capitalize_columns(df_data):
             newDf.rename(columns={col:tmp},inplace=True)
     return newDf
 
+#print(capitalize_columns(df))
 
 # %%
 '''
@@ -60,19 +60,17 @@ return type: int
 függvény neve: math_passed_count
 '''
 
-
 # %%
 def math_passed_count(df_data):
     newDf = df_data.copy()
     ctr = len(newDf[newDf['math score'] >= 50])
     return ctr
 
-
+#print(math_passed_count(df))
 
 # %%
 '''
-Készíts egy függvényt, ahol Dataframe ként vissza adjuk azoknak a diákoknak az adatait (sorokat),
-akik végeztek előzetes gyakorló kurzust.
+Készíts egy függvényt, ahol Dataframe ként vissza adjuk azoknak a diákoknak az adatait (sorokat), akik végeztek előzetes gyakorló kurzust.
 
 Egy példa a bemenetre: df_data
 Egy példa a kimenetre: df_did_pre_course
@@ -82,10 +80,9 @@ függvény neve: did_pre_course
 
 # %%
 def did_pre_course(df_data):
-    newDf=df_data.copy()
-    ret = newDf[newDf['test preparation course']!='none']
-    return ret
+    return df_data[df_data['test preparation course'] == 'completed']
 
+#print(did_pre_course(df))
 
 # %%
 '''
@@ -100,14 +97,13 @@ függvény neve: average_scores
 
 # %%
 def average_scores(df_data):
-    newDf = df_data.copy()
-    return newDf.groupby('parental level of education').aggregate({'math score':'mean','reading score':'mean',
-                                                                   'writing score':'mean'})
+    return df_data.groupby(['parental level of education']).mean()
+
+#print(average_scores(df))
 
 # %%
 '''
-Készíts egy függvényt, ami a bementeti Dataframet kiegészíti egy 'age' oszloppal,
-töltsük fel random 18-66 év közötti értékekkel.
+Készíts egy függvényt, ami a bementeti Dataframet kiegészíti egy 'age' oszloppal, töltsük fel random 18-66 év közötti értékekkel.
 A random.randint() függvényt használd, a random sorsolás legyen seedleve, ennek értéke legyen 42.
 
 Egy példa a bemenetre: df_data
@@ -124,6 +120,7 @@ def add_age(df_data):
     newDf['age']=age
     return newDf
 
+#print(add_age(df))
 
 # %%
 '''
@@ -144,6 +141,7 @@ def female_top_score(df_data):
     ki = (tmp['math score'],tmp['reading score'],tmp['writing score'])
     return ki
 
+#print(female_top_score(df))
 
 # %%
 '''
@@ -163,17 +161,17 @@ függvény neve: add_grade
 '''
 
 # %%
-
-
 def add_grade(df_data):
     newDf = df_data.copy()
     grade = (newDf['math score']+newDf['reading score']+newDf['writing score'])/300    
     newDf['grade'] = pd.cut(grade,
-                     bins = [0, 0.6,0.7,0.8,0.9,1],
+                     bins = [0, 0.59,0.69,0.79,0.89,1],
                      right=False,
                      labels=['F','D','C','B','A'])
     
     return newDf
+
+#print(add_grade(df))
 
 # %%
 '''
@@ -191,10 +189,6 @@ függvény neve: math_bar_plot
 '''
 
 # %%
-
-
-
-
 def math_bar_plot(df_data):
     newDf = df_data.copy()
     arr = newDf.groupby("gender", group_keys=False)['math score'].mean()
@@ -204,6 +198,7 @@ def math_bar_plot(df_data):
 
     return fig
 
+#print(math_bar_plot(df))
 
 # %%
 ''' 
@@ -221,16 +216,18 @@ függvény neve: writing_hist
 '''
 
 # %%
-
-
 def writing_hist(df_data):
     newDf = df_data.copy()
     
     fig, ax = plt.subplots()
-    newDf.plot.hist(column='writing score',xlabel='Writing Score',ylabel='Number of Students',title='Distribution of Writing Scores',ax=ax,fig = fig)
-    
+    ax.hist(newDf["writing score"])
+    ax.set_title("Distribution of Writing Scores")
+    ax.set_xlabel("Writing Score")
+    ax.set_ylabel("Number of Students")
+
     return fig
-    
+
+#print(writing_hist(df))
 
 # %%
 ''' 
@@ -247,18 +244,17 @@ return type: matplotlib.figure.Figure
 függvény neve: ethnicity_pie_chart
 '''
 
-
 # %%
-
 def ethnicity_pie_chart(df_data):
     newDf = df_data.copy()
     grouped = newDf.groupby('race/ethnicity')['race/ethnicity'].count()
 
     fig,ax = plt.subplots()
-    grouped.plot.pie(title='Proportion of Students by Race/Ethnicity',autopct='%1.1f%%',fig = fig,ax=ax)
-    
-    return fig
-    
+    ax.pie(grouped.values, labels = grouped.index, autopct="%0.01f%%")
+    plt.title("Proportion of Students by Race/Ethnicity")
 
+    return fig
+
+#print(ethnicity_pie_chart(df))
 
 
