@@ -8,7 +8,7 @@ import seaborn as sns
 class KNNClassifier:
         
     
-    def get_k(self):
+    def get_k(self)->int:
         return self.k
 
 
@@ -38,7 +38,7 @@ class KNNClassifier:
         return true_positive / len(self.y_test) *100
     
     def train_set_split(self,features:np.ndarray,
-                    labels:np.ndarray) ->Tuple[np.ndarray,np.ndarray,np.ndarray,np.ndarray]:
+                    labels:np.ndarray):
         test_size =int(len(features)*self.test_split_ratio)
         train_size = len(features) - test_size
         assert len(features) ==test_size + train_size,"Size mismatch"
